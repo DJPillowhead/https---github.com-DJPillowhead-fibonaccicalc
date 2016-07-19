@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Fibonacci calculator</title>
+<link rel="stylesheet" type="text/css" href="default.css"></link>
+<link rel="stylesheet" type="text/css" href="fonts.css"></link>
+</head>
+<body>
+	<script type="text/javascript"
+		src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript">
+		function fibcalc() {
+			$.ajax({
+				url : '/fibonacci2',
+				type : 'GET',
+				data : {
+					'fibonacci_input' : $('#fibonacci_input').val()
+				},
+			    beforeSend : function(){
+			    	if(!$.isNumeric($('#fibonacci_input').val()))
+			        {
+			        	$('#result').text("Please give me a number...");
+			        	 return false;
+			        }
+			    	if( ($('#fibonacci_input').val()) > 56)
+			        {
+			        	$('#result').text("Please give me a smaller number...");
+			        	 return false;
+			        }
+			    	if( ( 1 > $('#fibonacci_input').val()))
+			        {
+			        	$('#result').text("Please give me a higher number...");
+			        	 return false;
+			        }
+
+			        },
+				success : function(data) {
+					$('#result').html(data);
+				},
+				 error: function(xhr) {
+					 $('#result').text(xhr.responseText);
+				}
+			});
+		}
+	</script>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+	<div>
+		<label> What element of the Fibonacci series would you like to get? : <input type="text"
+			id="fibonacci_input" name="fibonacci_input" />
+		</label>
+	</div>
+	<br></br>
+	<div>
+		<button onclick="fibcalc();">Give me the number!</button>
+	</div>
+	<br></br>
+	<p>Your Fibonacci number is:</p>
+	<div id="result"></div>
+	<br></br>
+	<br></br>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+</html>
