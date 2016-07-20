@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FibonacciCalc {
 
-	@RequestMapping(path = "/fibonacci2", method = RequestMethod.GET) // this sets the calculator page name
+	@RequestMapping(path = "/fibonacci2", method = RequestMethod.POST) // this sets the calculator page name
 	public int fibonacciLoop( @RequestParam("fibonacci_input") int number){ 
 		if(number < 1 || number > 56){
 			throw new RuntimeException("The number is not between 1 and 55.");

@@ -16,6 +16,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/fibonacci").setViewName("fibonacci"); // the page with the input fields 
         registry.addViewController("/fibonacci2").setViewName("fibonacci2"); // the actual calculator
         registry.addViewController("/login").setViewName("login"); // login page
+        registry.addViewController("/error").setViewName("error"); // general error page
     }
 
 }
